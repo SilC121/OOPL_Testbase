@@ -8,6 +8,7 @@
 #include "Util/GameObject.hpp"
 
 
+
 class AnimatedCharacter : public Util::GameObject {
 
 public:

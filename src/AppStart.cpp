@@ -4,12 +4,40 @@
 
 void App::Start() {
     LOG_TRACE("Start");
+    std::vector<std::string> person_Images_up;
+    person_Images_up.reserve(3);
+    for (int i = 0; i < 3; ++i) {
+        person_Images_up.emplace_back(GA_RESOURCE_DIR"/PushBox_img/person_up_" + std::to_string(i + 1) + ".png");
+    }
+    person_Images_up.emplace_back(GA_RESOURCE_DIR"/PushBox_img/person_up_2.png");
+    std::vector<std::string> person_Images_down;
+    person_Images_down.reserve(3);
+    for (int i = 0; i < 3; ++i) {
+        person_Images_down.emplace_back(GA_RESOURCE_DIR"/PushBox_img/person_down_" + std::to_string(i + 1) + ".png");
+    }
+    person_Images_down.emplace_back(GA_RESOURCE_DIR"/PushBox_img/person_down_2.png");
+    std::vector<std::string> person_Images_left;
+    person_Images_left.reserve(2);
+    for (int i = 0; i < 2; ++i) {
+        person_Images_left.emplace_back(GA_RESOURCE_DIR"/PushBox_img/person_left_" + std::to_string(i + 1) + ".png");
+    }
+    std::vector<std::string> person_Images_right;
+    person_Images_right.reserve(2);
+    for (int i = 0; i < 2; ++i) {
+        person_Images_right.emplace_back(GA_RESOURCE_DIR"/PushBox_img/person_right_" + std::to_string(i + 1) + ".png");
+    }
+    m_people = std::make_shared<AnimatedCharacter>(person_Images_down);
+    m_people->SetZIndex(5);
+    m_people->SetVisible(true);
+    m_people->SetLooping(true);
+    m_people->SetPlaying();
+    m_Root.AddChild(m_people);
 
-    m_Giraffe = std::make_shared<Character>(GA_RESOURCE_DIR"/Image/Character/giraffe.png");
-    m_Giraffe->SetPosition({-112.5f, -140.5f});
-    m_Giraffe->SetZIndex(50);
-    m_Root.AddChild(m_Giraffe);
 
+    m_character = std::make_shared<Character>(GA_RESOURCE_DIR"/PushBox_img/person_down_1.png");
+    m_character->SetPosition({-112.5f, -140.5f});
+    m_character->SetZIndex(50);
+    m_Root.AddChild(m_character);
 
     m_Chest = std::make_shared<Character>(GA_RESOURCE_DIR"/Image/Character/chest.png");
     m_Chest->SetZIndex(5);

@@ -14,21 +14,21 @@ void App::ValidTask() {
     LOG_DEBUG("Validating the task {}", static_cast<int>(m_Phase));
     switch (m_Phase) {
         case Phase::CHANGE_CHARACTER_IMAGE:
-            if (m_Giraffe->GetImagePath() == GA_RESOURCE_DIR"/Image/Character/giraffe.png") {
+            if (m_character->GetImagePath() == GA_RESOURCE_DIR"/Image/Character/giraffe.png") {
                 m_Phase = Phase::ABLE_TO_MOVE;
-                m_Giraffe->SetPosition({-112.5f, -140.5f});
+                m_character->SetPosition({-112.5f, -140.5f});
 
                 m_PRM->NextPhase();
             } else {
                 LOG_DEBUG("The image is not correct");
-                LOG_DEBUG("The image path is {} instead.", m_Giraffe->GetImagePath());
+                LOG_DEBUG("The image path is {} instead.", m_character->GetImagePath());
             }
             break;
 
         case Phase::ABLE_TO_MOVE:
-            if (isInsideTheSquare(*m_Giraffe)) {
+            if (isInsideTheSquare(*m_character)) {
                 m_Phase = Phase::COLLIDE_DETECTION;
-                m_Giraffe->SetPosition({-112.5f, -140.5f});
+                m_character->SetPosition({-112.5f, -140.5f});
                 m_Chest->SetVisible(true);
 
                 m_PRM->NextPhase();
@@ -38,15 +38,16 @@ void App::ValidTask() {
             break;
 
         case Phase::COLLIDE_DETECTION:
-            if (m_Giraffe->IfCollides(m_Chest)) {
+            if (m_character->IfCollides(m_Chest)) {
                 if (m_Chest->GetVisibility()) {
                     LOG_DEBUG("The giraffe collided with the chest but the chest is still visible");
                 } else {
                     m_Phase = Phase::BEE_ANIMATION;
-                    m_Giraffe->SetVisible(false);
-                    m_Bee->SetVisible(true);
+                    m_character->SetVisible(false);
+                    m_Bee->SetVisible(false);
                     m_Bee->SetLooping(true);
                     m_Bee->SetPlaying();
+
                     m_PRM->NextPhase();
                 }
             } else {
@@ -60,8 +61,8 @@ void App::ValidTask() {
 
             if (isBeeLooping && isBeePlaying) {
                 m_Phase = Phase::OPEN_THE_DOORS;
-                m_Giraffe->SetPosition({-112.5f, -140.5f});
-                m_Giraffe->SetVisible(true);
+                m_character->SetPosition({-112.5f, -140.5f});
+                m_character->SetVisible(true);
                 m_Bee->SetVisible(false);
                 std::for_each(m_Doors.begin(), m_Doors.end(), [](const auto& door) { door->SetVisible(true); });
 
@@ -76,13 +77,13 @@ void App::ValidTask() {
             if (AreAllDoorsOpen(m_Doors)) {
                 m_Phase = Phase::COUNTDOWN;
                 std::for_each(m_Doors.begin(), m_Doors.end(), [](const auto& door) { door->SetVisible(false); });
-                m_Giraffe->SetVisible(false);
+                m_character->SetVisible(false);
                 m_Ball->SetVisible(true);
                 m_Ball->SetPlaying();
                 m_PRM->NextPhase();
             } else {
                 for (int i =0;i<3;i++){
-                    if(m_Giraffe->IfOpen(m_Doors[i])) {
+                    if(m_character->IfOpen(m_Doors[i])) {
                         m_Doors[i]->SetImage(GA_RESOURCE_DIR"/Image/Character/door_open.png");
                     };
                 }

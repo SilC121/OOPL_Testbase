@@ -44,12 +44,14 @@ private:
 
     Util::Renderer m_Root;
 
-    std::shared_ptr<Character> m_Giraffe;
+    std::shared_ptr<Character> m_character;
     std::shared_ptr<Character> m_Chest;
     std::vector<std::shared_ptr<Character>> m_Doors;
 
     std::shared_ptr<AnimatedCharacter> m_Bee;
     std::shared_ptr<AnimatedCharacter> m_Ball;
+
+    std::shared_ptr<AnimatedCharacter> m_people;
 
     std::shared_ptr<PhaseResourceManger> m_PRM;
 
