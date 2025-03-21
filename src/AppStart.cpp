@@ -34,8 +34,8 @@ void App::Start() {
     m_Root.AddChild(m_people);
 
 
-    m_character = std::make_shared<Character>(GA_RESOURCE_DIR"/PushBox_img/person_down_1.png");
-    m_character->SetPosition({-112.5f, -140.5f});
+    m_character = std::make_shared<Character>(GA_RESOURCE_DIR"/PushBox_img/blue_box.png");
+    m_character->SetPosition({0.0f, 125.0f});
     m_character->SetZIndex(50);
     m_Root.AddChild(m_character);
 

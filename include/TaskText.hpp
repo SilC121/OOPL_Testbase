@@ -8,11 +8,11 @@
 class TaskText : public Util::GameObject {
 public:
     TaskText() : GameObject(
-            std::make_unique<Util::Text>(GA_RESOURCE_DIR"/Font/Inkfree.ttf", 20,
-                                         append_string_views(s_PhaseTasks[0], s_Validation),
-                                         Util::Color::FromName(Util::Colors::WHITE)),
+            std::make_unique<Util::Text>(GA_RESOURCE_DIR"/Font/Inkfree.ttf", 40,
+                                         s_PhaseTasks[0].data(),
+                                         Util::Color::FromName(Util::Colors::RED)),
             100) {
-        m_Transform.translation = {0.0F, -270.F};
+        m_Transform.translation = {0.0F, 0.0F};
     }
 
     void NextPhase(const int phase) {
@@ -26,7 +26,7 @@ private:
     }
 
     static constexpr std::string_view s_PhaseTasks[6] = {
-            "Replace the image of m_giraffe with giraffe.png in Resources!",
+            "Press Enter to start!!!",
             "Make the giraffe move into the red area using the keyboard!",
             "Make the chest disappear when the giraffe touches it!",
             "Write a program to give your bee friend an animation!",
